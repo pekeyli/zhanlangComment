@@ -44,8 +44,8 @@ class ZhanlangSpider(scrapy.Spider):
             pass
         captcha = input("请输入验证码：\n")
         post_data = {
-            "form_email": "1226710837@qq.com",
-            "form_password": "Z9l5kdceR,2NGp",
+            "form_email": "zhanghoaming",
+            "form_password": "mima",
             "captcha-solution":captcha,
             "captcha-id": captcha_id,
             "redir": "https://movie.douban.com/subject/26363254/comments"
