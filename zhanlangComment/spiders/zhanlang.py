@@ -90,8 +90,3 @@ class ZhanlangSpider(scrapy.Spider):
             yield Request(url=next_page_url, callback=self.parse, dont_filter=True)
         else:
             pass
-
-
-
-
-
