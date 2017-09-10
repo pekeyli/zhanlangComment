@@ -13,12 +13,13 @@ from scrapy.conf import settings
 #
 #     def process_item(self, item, spider):
 #         return item
-
+#定义数据库的连接
 class MongoDBPipeline(object):
     def __init__(self):
         connection = pymongo.MongoClient(settings['MONGODB_SERVER'], settings['MONGODB_PORT'])
         db = connection[settings['MONGODB_DB']]
         self.collection = db[settings['MONGODB_COLLECTION']]
+    #判断数据是否有效，如果有效则将item插入到数据库中，否则丢掉这个item
     def process_item(self, item, spider):
         valid = True
         for data in item:

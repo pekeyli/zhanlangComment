@@ -6,8 +6,8 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-
-
+from fake_useragent import UserAgent
+from zhanlangComment.tools.crawl_xici_ip import GetIp
 class ZhanlangcommentSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -54,3 +54,23 @@ class ZhanlangcommentSpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+#定义随机用户代理
+class RandomUserAgentMiddleware(object):
+
+    # 随机更换user-agent
+    def __init__(self, crawler):
+        super(RandomUserAgentMiddleware, self).__init__()
+        self.ua = UserAgent()
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler)
+    def process_request(self, request, spider):
+        request.headers.setdefault('user_agent',self.ua.random)
+
+#定义动态随机ip代理
+class RandomProxyMiddleware(object):
+    #动态ip代理
+    def process_request(self, request, spider):
+        get_ip = GetIp()
+        request.meta['proxy'] = get_ip.get_random_ip()
+
